@@ -1,5 +1,5 @@
 # GenBankParser
-__Unofficial__ parser for ncbi GenBank data in the _GenBank flatfile format_.
+__*Unofficial*__ parser for ncbi GenBank data in the _GenBank flatfile format_.
 
 # Installation 
 
