@@ -98,28 +98,28 @@ Additional arguments can directly be passed to the parser method.
 A simple use-case of a callable would be a method extracting certain 
 information from each parsed genome, like the set of present genes:
 
+```python
+from gbparse import Parser
 
-    from gbparse import Parser
-
-    # define a callable that retrieves all genes from a genomes
-    def get_genes(genome, present_genomes):
-        present_genomes.extend(
-    	    list(set(
-		    gene.get('gene', None)
-		    for gene in genome['content'].get('genes', {})
-	        ))
-        )
-        return None
+# define a callable that retrieves all genes from a genomes
+def get_genes(genome, present_genomes):
+    present_genomes.extend(
+    	list(set(
+		gene.get('gene', None)
+		for gene in genome['content'].get('genes', {})
+	    ))
+    )
+    return None
     
-    p = Parser()
-    # define result variable
-    list_of_present_genes = []
+p = Parser()
+# define result variable
+list_of_present_genes = []
 
-    genome_file = '/path/to/genome_file.txt'
+genome_file = '/path/to/genome_file.txt'
 
-    with open(genome_file, 'r') as fobj:
-        p.parse(fobj, fct=get_genes, present_genomes=list_of_present_genes)
-
+with open(genome_file, 'r') as fobj:
+    p.parse(fobj, fct=get_genes, present_genomes=list_of_present_genes)
+``` 
 ## Fetch from ncbi
 Say we want the get the first 10 GenBank files that are returned when searching for 'hiv' on the Pubmed database.
 Using the [ncbi entrez eutils](https://www.ncbi.nlm.nih.gov/books/NBK25500/) tool the query to retrieve UID's of these entries might look like this:
@@ -127,16 +127,52 @@ Using the [ncbi entrez eutils](https://www.ncbi.nlm.nih.gov/books/NBK25500/) too
 > https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=hiv&retstart=0&retmax=10&rettype=text&tool=biomed3&format=json
 
 Here is how this can all be done in python:
+```python
+import requests
+from gbparse import Parser
 
-    import requests
-    from gbparse import Parser
+# first get the list of UID's
+resp = requests.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=hiv&retstart=0&retmax=10&rettype=text&tool=biomed3&format=json')
+assert resp.status_code == 200
+as_json = resp.json()
+idlist = as_json['esearchresult']['idlist']
+
+# now get the data, parse it and cast the content into a list of genomes
+p = Parser()
+genomes = p.fetch(idlist)
+```
+## Using custom parsers
+GenBankParser allows to easily add new and overwrite parsers for specific sections. Here is how you might overwrite the parser for the `COMMENT` section:
+
+```python
+form gbparse import Parser
+
+p = Parser()
+
+
+# define a new parser for the comment section
+def new_comment_parser(content_lines, genome_content):
+    """
+    Extract the Annotation part from the COMMENT section and save it 
+    as an additional "annotation" section to the genome object.
+    """
+    _content = ''.join(content_lines)
+    _annotation_content = {}
+    for line in content_lines:
+        if '::' in line:
+	    _k, _v = map(str.strip, line.split('::'))
+	    _annotation_content[_k] = _v
+    # add the annotation section
+    genome_content['annotation'] = _annotation_content
+    # still save the entire comment
+    genome_content['comment'] = _content
+
+
+# now overwrite the comment parser
+p.content_parser.update(
+    {'comment': {None: new_comment_parser}}
+    )
     
-    # first get the list of UID's
-    resp = requests.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=hiv&retstart=0&retmax=10&rettype=text&tool=biomed3&format=json')
-    assert resp.status_code == 200
-    as_json = resp.json()
-    idlist = as_json['esearchresult']['idlist']
-    
-    # now get the data, parse it and cast the content into a list of genomes
-    p = Parser()
-    genomes = p.fetch(idlist)
+# DONE! Now, when the parser encounters a COMMENT section,
+# the new_comment_parser method will handle it.
+   
