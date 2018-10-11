@@ -2,8 +2,14 @@
 __*Unofficial*__ parser for ncbi GenBank data in the _GenBank flatfile format_.
 
 # Installation 
+_I recommend using a [virtualenv](https://pypi.org/project/virtualenv/)!_
 
-TODO: add pip install instructions and proper setup.py
+The packages can be pip-installed
+
+```bash
+pip install git+git://github.com/j-i-l/GenBankParser.git@v0.1.1-alpha
+```
+`v0.1.1-alpha` is the last version at the moment of writing these instuctions. Check the [releases](https://github.com/j-i-l/GenBankParser/releases) section for newer versions.
 
 # Package info
 
