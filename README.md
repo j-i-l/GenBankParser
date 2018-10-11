@@ -9,12 +9,16 @@ The packages can be pip-installed
 ```bash
 pip install git+git://github.com/j-i-l/GenBankParser.git@v0.1.1-alpha
 ```
-`v0.1.1-alpha` is the last version at the moment of writing these instuctions. Check the [releases](https://github.com/j-i-l/GenBankParser/releases) section for newer versions.
+`v0.1.1-alpha` is the last version at the moment of writing these instructions.
+Check the [releases](https://github.com/j-i-l/GenBankParser/releases) section for newer versions.
 
 # Package info
+**Contributions are welcome!**
+
+This packages is not actively maintained. 
 
 ## Python compatibility
-Works both with python2 and python3.
+Supported is any python version >=2.7 including python 3.x.
 
 ## Requirements
 - [configparser](https://docs.python.org/2/library/configparser.html)
@@ -59,27 +63,30 @@ GenBankParser then tries to fetch the entries directly from the ncbi database. F
 
 ### Get a list of genomes
 
-    from gbparse import Parser
-    
-    p = Parser()
+```python
+from gbparse import Parser
 
-    genome_file = '/path/to/genome_file.txt'
+p = Parser()
 
-    with open(genome_file, 'r') as fobj:
-        genomes = p.parse(fobj)
+genome_file = '/path/to/genome_file.txt'
+
+with open(genome_file, 'r') as fobj:
+    genomes = p.parse(fobj)
+```
 
 ### Save genomes as json files to a directory
 
+```python
+from gbparse import Parser
 
-    from gbparse import Parser
-    
-    p = Parser()
+p = Parser()
 
-    genome_file = '/path/to/genome_file.txt'
-    genomes_save_path = '/path/to/genomes/'
+genome_file = '/path/to/genome_file.txt'
+genomes_save_path = '/path/to/genomes/'
 
-    with open(genome_file, 'r') as fobj:
-        genomes = p.parse(fobj, genomes_save_path)
+with open(genome_file, 'r') as fobj:
+    genomes = p.parse(fobj, genomes_save_path)
+```
 
 ## Processing
 
