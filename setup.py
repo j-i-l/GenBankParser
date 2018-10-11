@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import absolute_import, unicode_literals
 
-from distutils.core import setup, find_packages
+from setuptools import setup, find_packages
 
 setup(
     name='GenbankParser',
