@@ -3,7 +3,7 @@ __*Unofficial*__ parser for ncbi GenBank data in the _GenBank flatfile format_.
 
 # Installation 
 
-TODO: add pip install instructins and proper setup.py
+TODO: add pip install instructions and proper setup.py
 
 # Package info
 
@@ -43,7 +43,8 @@ Accepted are either files with single genomes or genes like [this file](https://
 
 If you want to process sequence of genomes downloaded from the ncbi GenBank ftp server (ftp://ftp.ncbi.nih.gov/genbank/), please make sure to first decompress the files before using the GenBankParser.
 
-In addition to GenBank files the GenBankParser also accepts GenBank UIDs. GenBankParser then tries to fetch the entries directly from the ncbi database. For an example see the [Use case](#fetch-from-ncbi) below.
+In addition to GenBank files the GenBankParser also accepts GenBank UIDs.
+GenBankParser then tries to fetch the entries directly from the ncbi database. For an example see the [example](#fetch-from-ncbi) below.
 
 ---
 # Use cases
