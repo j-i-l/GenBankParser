@@ -11,6 +11,7 @@ setup(
     packages=find_packages(),
     install_requires=['configparser', 'requests'],
     data_files=[
-        ('config', ['gbparse/config.cfg']),
-        ]
+        ('gbparse', ['gbparse/config.cfg']),
+        ],
+    include_package_data=True,
     )
