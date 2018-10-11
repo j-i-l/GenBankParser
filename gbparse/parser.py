@@ -276,7 +276,7 @@ class Parser(object):
             genome_id = '12345'
             genome_id = '12345,23456'
             genome_id = [12345, 23456]
-            genome_id = ['12345', '23456']
+            genome_id = ['CP12345', '23456', 34567]
         :type genome_id: int, list
 
         For additional parameters refer to the self.parser method.
@@ -288,12 +288,16 @@ class Parser(object):
             genome_id = [genome_id]
         elif isinstance(genome_id, (str, unicode)):
             genome_id = genome_id.replace(' ', '').split(',')
-            assert all([gen_id.isdigit() for gen_id in genome_id]), \
-                'Not all provided genome_ids are numbers.'
+            assert all(
+                    [
+                        gen_id.isdigit() or gen_id[2:].isdigit()
+                        for gen_id in genome_id]
+                    ), 'Not all provided genome_ids are numbers.'
         else:
             assert all(
                     [
-                        gen_id.isdigit() if isinstance(gen_id, (str, unicode))
+                        (gen_id.isdigit() or gen_id[2:].isdigit())
+                        if isinstance(gen_id, (str, unicode))
                         else isinstance(gen_id, int)
                         for gen_id in genome_id
                         ]
