@@ -5,10 +5,10 @@ from distutils.core import setup
 
 setup(
     name='GenbankParser',
-    version='0.1.0-alpha',
+    version='0.1-alpha',
     description='Unofficial parser for ncbi GenBank data.',
     author='Jonas I. Liechti',
-    packages=['gbparse'],
+    packages=['gbparse', 'gbparse.content_parser'],
     install_requires=['configparser', 'requests'],
     data_files=[
         ('config', ['gbparse/config.cfg']),
