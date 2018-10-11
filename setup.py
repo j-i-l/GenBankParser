@@ -8,7 +8,7 @@ setup(
     version='0.1-alpha',
     description='Unofficial parser for ncbi GenBank data.',
     author='Jonas I. Liechti',
-    packages=['gbparse', 'gbparse.content_parser'],
+    packages=['gbparse', 'gbparse.content_parsers'],
     install_requires=['configparser', 'requests'],
     data_files=[
         ('config', ['gbparse/config.cfg']),
