@@ -282,11 +282,11 @@ class Parser(object):
         For additional parameters refer to the self.parser method.
         """
 
-        assert isinstance(genome_id, (int, str, unicode, list)), \
+        assert isinstance(genome_id, (int, str, list)), \
             'genome_id must either be an integer, string or list.'
         if isinstance(genome_id, int):
             genome_id = [genome_id]
-        elif isinstance(genome_id, (str, unicode)):
+        elif isinstance(genome_id, (str)):
             genome_id = genome_id.replace(' ', '').split(',')
             assert all(
                     [
@@ -297,7 +297,7 @@ class Parser(object):
             assert all(
                     [
                         (gen_id.isdigit() or gen_id[2:].isdigit())
-                        if isinstance(gen_id, (str, unicode))
+                        if isinstance(gen_id, (str))
                         else isinstance(gen_id, int)
                         for gen_id in genome_id
                         ]
