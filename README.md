@@ -28,6 +28,8 @@ Supported is any python version >=2.7 including python 3.x.
 - [requests](http://docs.python-requests.org/en/master/)
 
     >pip install requests
+
+
 ## Accepted content
 This GenBankParser aims to parse uncompressed GenBank files in the _GenBank
 flatfile format_. 
@@ -149,7 +151,6 @@ form gbparse import Parser
 
 p = Parser()
 
-
 # define a new parser for the comment section
 def new_comment_parser(content_lines, genome_content):
     """
@@ -175,4 +176,4 @@ p.content_parser.update(
     
 # DONE! Now, when the parser encounters a COMMENT section,
 # the new_comment_parser method will handle it.
-   
+```   
