@@ -108,3 +108,5 @@ venv.bak/
 
 docs/
 doctrees/
+
+docs/README.md
