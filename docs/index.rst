@@ -10,7 +10,7 @@ Welcome to GenBankParser's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   ./README.md
+   ../README.md
 
 
 
